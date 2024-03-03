@@ -74,6 +74,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x16:
 		core.aslZeroPage(&core.idx)
 
+	case 0x18:
+		core.setFlag(Carry, false)
+
 	case 0x1E:
 		core.aslAbsolute(&core.idx)
 
@@ -104,6 +107,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x35:
 		core.andZeroPage(&core.idx)
 
+	case 0x38:
+		core.setFlag(Carry, true)
+
 	case 0x39:
 		core.andAbsolute(&core.idy)
 
@@ -112,6 +118,9 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0x50:
 		core.branchNotOverflow()
+
+	case 0x58:
+		core.setFlag(IRQD, false)
 
 	case 0x65:
 		core.addZeroPage(nil)
@@ -127,6 +136,9 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0x75:
 		core.addZeroPage(&core.idx)
+
+	case 0x78:
+		core.setFlag(IRQD, true)
 
 	case 0x79:
 		core.addAbsolute(&core.idy)
@@ -182,6 +194,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0xB6:
 		core.loadZeroPage(&core.idx, &core.idy)
 
+	case 0xB8:
+		core.setFlag(Overflow, false)
+
 	case 0xB9:
 		core.loadAbsolute(&core.acc, &core.idy)
 
@@ -197,7 +212,13 @@ func (core *Core) decode(opcode uint8) {
 	case 0xD0:
 		core.branchNotEqual()
 
+	case 0xD8:
+		core.setFlag(Decimal, false)
+
 	case 0xF0:
 		core.branchIfEqual()
+
+	case 0xF8:
+		core.setFlag(Decimal, true)
 	}
 }
