@@ -26,6 +26,7 @@ func (core *Core) Reset() {
 	core.idy = 0
 	core.sp = 0xff
 
+	// 6502 reset vector
 	pcl := core.bus.Read(0xfffc)
 	pch := core.bus.Read(0xfffd)
 	core.pc = addrFromBytes(pcl, pch)

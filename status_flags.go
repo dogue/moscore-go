@@ -28,6 +28,7 @@ func (core *Core) getFlagUint8(bit Flag) uint8 {
 	return core.p & (1 << bit)
 }
 
+// setting both the negative and zero flags is common enough to warrant this helper
 func (core *Core) setNZ(byte uint8) {
 	core.setFlag(Negative, (byte&0x80) != 0)
 	core.setFlag(Zero, byte == 0)
