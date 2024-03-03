@@ -33,9 +33,11 @@ func (core *Core) getIndexedIndirect() uint8 {
 	zpHigh := uint8(0x00)
 	zpLow += core.idx
 	zpAddr := addrFromBytes(zpLow, zpHigh)
+
 	targetLow := core.bus.Read(zpAddr)
 	targetHigh := core.bus.Read(zpAddr + 1)
 	targetAddr := addrFromBytes(targetLow, targetHigh)
+
 	return core.bus.Read(targetAddr)
 }
 
@@ -43,9 +45,11 @@ func (core *Core) getIndirectIndexed() uint8 {
 	zpLow := core.fetch()
 	zpHigh := uint8(0x00)
 	zpAddr := addrFromBytes(zpLow, zpHigh)
+
 	targetLow := core.bus.Read(zpAddr)
 	targetHigh := core.bus.Read(zpAddr + 1)
 	targetAddr := addrFromBytes(targetLow, targetHigh)
 	targetAddr += uint16(core.idy)
+
 	return core.bus.Read(targetAddr)
 }

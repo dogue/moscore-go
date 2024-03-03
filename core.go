@@ -83,22 +83,22 @@ func (core *Core) decode(opcode uint8) {
 		core.andAbsolute(&core.idx)
 
 	case 0x65:
-		core.addZeroPage()
+		core.addZeroPage(nil)
 
 	case 0x69:
 		core.addImmediate()
 
 	case 0x6D:
-		core.addAbsolute()
+		core.addAbsolute(nil)
 
 	case 0x75:
-		core.addZeroPageX()
+		core.addZeroPage(&core.idx)
 
 	case 0x79:
-		core.addAbsoluteIndexed(&core.idy)
+		core.addAbsolute(&core.idy)
 
 	case 0x7D:
-		core.addAbsoluteIndexed(&core.idx)
+		core.addAbsolute(&core.idx)
 
 	case 0xA0:
 		core.loadImmediate(&core.idy)
@@ -110,48 +110,48 @@ func (core *Core) decode(opcode uint8) {
 		core.loadImmediate(&core.idx)
 
 	case 0xA4:
-		core.loadZeroPage(&core.idy)
+		core.loadZeroPage(&core.idy, nil)
 
 	case 0xA5:
-		core.loadZeroPage(&core.acc)
+		core.loadZeroPage(&core.acc, nil)
 
 	case 0xA6:
-		core.loadZeroPage(&core.idx)
+		core.loadZeroPage(&core.idx, nil)
 
 	case 0xA9:
 		core.loadImmediate(&core.acc)
 
 	case 0xAC:
-		core.loadAbsolute(&core.idy)
+		core.loadAbsolute(&core.idy, nil)
 
 	case 0xAD:
-		core.loadAbsolute(&core.acc)
+		core.loadAbsolute(&core.acc, nil)
 
 	case 0xAE:
-		core.loadAbsolute(&core.idx)
+		core.loadAbsolute(&core.idx, nil)
 
 	case 0xB1:
 		core.loadIndirectIndexed(&core.acc)
 
 	case 0xB4:
-		core.loadZeroPageIndexed(&core.idy, &core.idx)
+		core.loadZeroPage(&core.idy, &core.idx)
 
 	case 0xB5:
-		core.loadZeroPageIndexed(&core.acc, &core.idx)
+		core.loadZeroPage(&core.acc, &core.idx)
 
 	case 0xB6:
-		core.loadZeroPageIndexed(&core.idx, &core.idy)
+		core.loadZeroPage(&core.idx, &core.idy)
 
 	case 0xB9:
-		core.loadAbsoluteIndexed(&core.acc, &core.idy)
+		core.loadAbsolute(&core.acc, &core.idy)
 
 	case 0xBC:
-		core.loadAbsoluteIndexed(&core.idy, &core.idx)
+		core.loadAbsolute(&core.idy, &core.idx)
 
 	case 0xBD:
-		core.loadAbsoluteIndexed(&core.acc, &core.idx)
+		core.loadAbsolute(&core.acc, &core.idx)
 
 	case 0xBE:
-		core.loadAbsoluteIndexed(&core.idx, &core.idy)
+		core.loadAbsolute(&core.idx, &core.idy)
 	}
 }
