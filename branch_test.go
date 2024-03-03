@@ -72,3 +72,15 @@ func TestBranchIfPositive(t *testing.T) {
 		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
+
+func TestBranchNotOverflow(t *testing.T) {
+	bus := newBus([]uint8{0x50, 0x05})
+	core := New(&bus)
+	core.Reset()
+	core.setFlag(Overflow, false)
+	core.Step()
+
+	if core.pc != 0x8007 {
+		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+	}
+}

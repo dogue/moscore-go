@@ -59,3 +59,13 @@ func (core *Core) branchIfPositive() {
 
 	core.pc += uint16(offset)
 }
+
+func (core *Core) branchNotOverflow() {
+	offset := core.getImmediate()
+
+	if core.getFlag(Overflow) {
+		return
+	}
+
+	core.pc += uint16(offset)
+}
