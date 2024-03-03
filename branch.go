@@ -19,3 +19,13 @@ func (core *Core) branchCarrySet() {
 
 	core.pc += uint16(offset)
 }
+
+func (core *Core) branchIfEqual() {
+	offset := core.getImmediate()
+
+	if !core.getFlag(Zero) {
+		return
+	}
+
+	core.pc += uint16(offset)
+}

@@ -175,5 +175,8 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0xBE:
 		core.loadAbsolute(&core.idx, &core.idy)
+
+	case 0xF0:
+		core.branchIfEqual()
 	}
 }
