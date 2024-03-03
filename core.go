@@ -1,15 +1,5 @@
 package moscore
 
-const (
-	Carry    = 0
-	Zero     = 1
-	IRQD     = 2
-	Decimal  = 3
-	Break    = 4
-	Overflow = 6
-	Negative = 7
-)
-
 type Bus interface {
 	Read(uint16) uint8
 	Write(uint16, uint8)
@@ -65,21 +55,26 @@ func (core *Core) pull() uint8 {
 	return core.bus.Read(addr)
 }
 
-func (core *Core) setFlag(bit int, cond bool) {
-	if cond {
-		core.sp |= 1 << bit
-	} else {
-		core.sp &= ^uint8(1) << bit
-	}
-}
-
-func (core *Core) setNZ(byte uint8) {
-	core.setFlag(Negative, (byte&0x80) != 0)
-	core.setFlag(Zero, byte == 0)
-}
-
 func (core *Core) decode(opcode uint8) {
 	switch opcode {
+	case 0x65:
+		core.addZeroPage()
+
+	case 0x69:
+		core.addImmediate()
+
+	case 0x6D:
+		core.addAbsolute()
+
+	case 0x75:
+		core.addZeroPageX()
+
+	case 0x79:
+		core.addAbsoluteIndexed(&core.idy)
+
+	case 0x7D:
+		core.addAbsoluteIndexed(&core.idx)
+
 	case 0xA0:
 		core.loadImmediate(&core.idy)
 
@@ -134,14 +129,4 @@ func (core *Core) decode(opcode uint8) {
 	case 0xBE:
 		core.loadAbsoluteIndexed(&core.idx, &core.idy)
 	}
-}
-
-func addrFromBytes(low, high uint8) uint16 {
-	return (uint16(high) << 8) | uint16(low)
-}
-
-func bytesFromAddr(addr uint16) (uint8, uint8) {
-	low := uint8(addr)
-	high := uint8(addr >> 8)
-	return low, high
 }
