@@ -69,3 +69,13 @@ func (core *Core) branchNotOverflow() {
 
 	core.pc += uint16(offset)
 }
+
+func (core *Core) branchIfOverflow() {
+	offset := core.getImmediate()
+
+	if !core.getFlag(Overflow) {
+		return
+	}
+
+	core.pc += uint16(offset)
+}

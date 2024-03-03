@@ -122,6 +122,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x6D:
 		core.addAbsolute(nil)
 
+	case 0x70:
+		core.branchIfOverflow()
+
 	case 0x75:
 		core.addZeroPage(&core.idx)
 
