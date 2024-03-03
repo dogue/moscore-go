@@ -58,6 +58,21 @@ func (core *Core) pull() uint8 {
 
 func (core *Core) decode(opcode uint8) {
 	switch opcode {
+	case 0x06:
+		core.aslZeroPage(nil)
+
+	case 0x0A:
+		core.aslAccumulator()
+
+	case 0x0E:
+		core.aslAbsolute(nil)
+
+	case 0x16:
+		core.aslZeroPage(&core.idx)
+
+	case 0x1E:
+		core.aslAbsolute(&core.idx)
+
 	case 0x21:
 		core.andIndexedIndirect()
 

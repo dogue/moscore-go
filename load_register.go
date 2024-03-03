@@ -7,21 +7,21 @@ func (core *Core) loadImmediate(reg Register) {
 }
 
 func (core *Core) loadZeroPage(reg, index Register) {
-	*reg = core.getZeroPage(index)
+	*reg = core.getZeroPageByte(index)
 	core.setNZ(*reg)
 }
 
 func (core *Core) loadAbsolute(reg, index Register) {
-	*reg = core.getAbsolute(index)
+	*reg = core.getAbsoluteByte(index)
 	core.setNZ(*reg)
 }
 
 func (core *Core) loadIndexedIndirect(reg Register) {
-	*reg = core.getIndexedIndirect()
+	*reg = core.getIndexedIndirectByte()
 	core.setNZ(*reg)
 }
 
 func (core *Core) loadIndirectIndexed(reg Register) {
-	*reg = core.getIndirectIndexed()
+	*reg = core.getIndirectIndexedByte()
 	core.setNZ(*reg)
 }

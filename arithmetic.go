@@ -10,7 +10,7 @@ func (core *Core) addImmediate() {
 }
 
 func (core *Core) addZeroPage(index Register) {
-	byte := core.getZeroPage(index)
+	byte := core.getZeroPageByte(index)
 	carry := core.getFlagUint8(Carry)
 	sum, carry := add8(core.acc, byte, carry)
 	core.acc = sum
@@ -19,7 +19,7 @@ func (core *Core) addZeroPage(index Register) {
 }
 
 func (core *Core) addAbsolute(index Register) {
-	byte := core.getAbsolute(index)
+	byte := core.getAbsoluteByte(index)
 	carry := core.getFlagUint8(Carry)
 	sum, carry := add8(core.acc, byte, carry)
 	core.acc = sum
@@ -28,7 +28,7 @@ func (core *Core) addAbsolute(index Register) {
 }
 
 func (core *Core) addIndexedIndirect() {
-	byte := core.getIndexedIndirect()
+	byte := core.getIndexedIndirectByte()
 	carry := core.getFlagUint8(Carry)
 	sum, carry := add8(core.acc, byte, carry)
 	core.acc = sum
@@ -37,7 +37,7 @@ func (core *Core) addIndexedIndirect() {
 }
 
 func (core *Core) addIndirectIndexed() {
-	byte := core.getIndirectIndexed()
+	byte := core.getIndirectIndexedByte()
 	carry := core.getFlagUint8(Carry)
 	sum, carry := add8(core.acc, byte, carry)
 	core.acc = sum

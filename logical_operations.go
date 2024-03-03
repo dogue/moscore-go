@@ -7,25 +7,25 @@ func (core *Core) andImmediate() {
 }
 
 func (core *Core) andZeroPage(index Register) {
-	byte := core.getZeroPage(index)
+	byte := core.getZeroPageByte(index)
 	core.acc &= byte
 	core.setNZ(core.acc)
 }
 
 func (core *Core) andAbsolute(index Register) {
-	byte := core.getAbsolute(index)
+	byte := core.getAbsoluteByte(index)
 	core.acc &= byte
 	core.setNZ(core.acc)
 }
 
 func (core *Core) andIndexedIndirect() {
-	byte := core.getIndexedIndirect()
+	byte := core.getIndexedIndirectByte()
 	core.acc &= byte
 	core.setNZ(core.acc)
 }
 
 func (core *Core) andIndirectIndexed() {
-	byte := core.getIndirectIndexed()
+	byte := core.getIndirectIndexedByte()
 	core.acc &= byte
 	core.setNZ(core.acc)
 }
