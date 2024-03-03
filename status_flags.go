@@ -8,6 +8,7 @@ const (
 	IRQD
 	Decimal
 	Break
+	Unused
 	Overflow
 	Negative
 )

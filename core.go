@@ -77,11 +77,17 @@ func (core *Core) decode(opcode uint8) {
 	case 0x21:
 		core.andIndexedIndirect()
 
+	case 0x24:
+		core.bitZeroPage()
+
 	case 0x25:
 		core.andZeroPage(nil)
 
 	case 0x29:
 		core.andImmediate()
+
+	case 0x2C:
+		core.bitAbsolute()
 
 	case 0x2D:
 		core.andAbsolute(nil)
