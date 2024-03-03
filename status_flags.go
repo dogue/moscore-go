@@ -21,7 +21,7 @@ func (core *Core) setFlag(bit Flag, cond bool) {
 }
 
 func (core *Core) getFlag(bit Flag) bool {
-	return core.p&(1<<bit) == 0
+	return core.p&(1<<bit) != 0
 }
 
 func (core *Core) getFlagUint8(bit Flag) uint8 {

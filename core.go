@@ -25,6 +25,7 @@ func (core *Core) Reset() {
 	core.idx = 0
 	core.idy = 0
 	core.sp = 0xff
+	core.p = 0
 
 	// 6502 reset vector
 	pcl := core.bus.Read(0xfffc)
@@ -115,6 +116,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x7D:
 		core.addAbsolute(&core.idx)
 
+	case 0x90:
+		core.branchCarryClear()
+
 	case 0xA0:
 		core.loadImmediate(&core.idy)
 
@@ -144,6 +148,9 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0xAE:
 		core.loadAbsolute(&core.idx, nil)
+
+	case 0xB0:
+		core.branchCarrySet()
 
 	case 0xB1:
 		core.loadIndirectIndexed(&core.acc)
