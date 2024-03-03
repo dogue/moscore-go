@@ -29,3 +29,13 @@ func (core *Core) branchIfEqual() {
 
 	core.pc += uint16(offset)
 }
+
+func (core *Core) branchIfMinus() {
+	offset := core.getImmediate()
+
+	if !core.getFlag(Negative) {
+		return
+	}
+
+	core.pc += uint16(offset)
+}

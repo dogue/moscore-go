@@ -92,6 +92,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x2D:
 		core.andAbsolute(nil)
 
+	case 0x30:
+		core.branchIfMinus()
+
 	case 0x31:
 		core.andIndirectIndexed()
 
