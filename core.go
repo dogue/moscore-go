@@ -68,6 +68,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x0E:
 		core.aslAbsolute(nil)
 
+	case 0x10:
+		core.branchIfPositive()
+
 	case 0x16:
 		core.aslZeroPage(&core.idx)
 

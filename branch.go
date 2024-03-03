@@ -49,3 +49,13 @@ func (core *Core) branchNotEqual() {
 
 	core.pc += uint16(offset)
 }
+
+func (core *Core) branchIfPositive() {
+	offset := core.getImmediate()
+
+	if core.getFlag(Negative) {
+		return
+	}
+
+	core.pc += uint16(offset)
+}
