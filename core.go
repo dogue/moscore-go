@@ -146,19 +146,47 @@ func (core *Core) decode(opcode uint8) {
 	case 0x7D:
 		core.addAbsolute(&core.idx)
 
+	case 0x81:
+		addr := core.getIndexedIndirectAddr()
+		core.bus.Write(addr, core.acc)
+
+	case 0x85:
+		addr := core.getZeroPageAddr(nil)
+		core.bus.Write(addr, core.acc)
+
 	case 0x8A:
 		core.acc = core.idx
 		core.setNZ(core.acc)
 
+	case 0x8D:
+		addr := core.getAbsoluteAddr(nil)
+		core.bus.Write(addr, core.acc)
+
 	case 0x90:
 		core.branchCarryClear()
+
+	case 0x91:
+		addr := core.getIndirectIndexedAddr()
+		core.bus.Write(addr, core.acc)
+
+	case 0x95:
+		addr := core.getZeroPageAddr(&core.idx)
+		core.bus.Write(addr, core.acc)
 
 	case 0x98:
 		core.acc = core.idy
 		core.setNZ(core.acc)
 
+	case 0x99:
+		addr := core.getAbsoluteAddr(&core.idy)
+		core.bus.Write(addr, core.acc)
+
 	case 0x9A:
 		core.sp = core.idx
+
+	case 0x9D:
+		addr := core.getAbsoluteAddr(&core.idx)
+		core.bus.Write(addr, core.acc)
 
 	case 0xA0:
 		core.loadImmediate(&core.idy)
