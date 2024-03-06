@@ -44,3 +44,6 @@ func (core *Core) addIndirectIndexed() {
 	core.setFlag(Carry, carry == 1)
 	core.setNZ(core.acc)
 }
+
+func (core *Core) subImmediate() {
+}

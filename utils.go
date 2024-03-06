@@ -20,3 +20,10 @@ func add8(x, y, carryIn uint8) (sum, carryOut uint8) {
 	carryOut = uint8(sum16 >> 8)
 	return
 }
+
+// also ripped from std
+func sub8(x, y, borrowIn uint8) (diff, borrowOut uint8) {
+	diff = x - y - borrowIn
+	borrowOut = ((^x & ^y) | (^(x ^ y) & diff)) >> 7
+	return
+}

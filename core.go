@@ -146,8 +146,19 @@ func (core *Core) decode(opcode uint8) {
 	case 0x7D:
 		core.addAbsolute(&core.idx)
 
+	case 0x8A:
+		core.acc = core.idx
+		core.setNZ(core.acc)
+
 	case 0x90:
 		core.branchCarryClear()
+
+	case 0x98:
+		core.acc = core.idy
+		core.setNZ(core.acc)
+
+	case 0x9A:
+		core.sp = core.idx
 
 	case 0xA0:
 		core.loadImmediate(&core.idy)
@@ -167,8 +178,16 @@ func (core *Core) decode(opcode uint8) {
 	case 0xA6:
 		core.loadZeroPage(&core.idx, nil)
 
+	case 0xA8:
+		core.idy = core.acc
+		core.setNZ(core.idy)
+
 	case 0xA9:
 		core.loadImmediate(&core.acc)
+
+	case 0xAA:
+		core.idx = core.acc
+		core.setNZ(core.idx)
 
 	case 0xAC:
 		core.loadAbsolute(&core.idy, nil)
@@ -199,6 +218,10 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0xB9:
 		core.loadAbsolute(&core.acc, &core.idy)
+
+	case 0xBA:
+		core.idx = core.sp
+		core.setNZ(core.idx)
 
 	case 0xBC:
 		core.loadAbsolute(&core.idy, &core.idx)
