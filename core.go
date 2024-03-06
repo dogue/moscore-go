@@ -62,6 +62,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x06:
 		core.aslZeroPage(nil)
 
+	case 0x08:
+		core.push(core.p)
+
 	case 0x0A:
 		core.aslAccumulator()
 
@@ -88,6 +91,9 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0x25:
 		core.andZeroPage(nil)
+
+	case 0x28:
+		core.p = core.pull()
 
 	case 0x29:
 		core.andImmediate()
@@ -116,6 +122,9 @@ func (core *Core) decode(opcode uint8) {
 	case 0x3D:
 		core.andAbsolute(&core.idx)
 
+	case 0x48:
+		core.push(core.acc)
+
 	case 0x50:
 		core.branchNotOverflow()
 
@@ -124,6 +133,9 @@ func (core *Core) decode(opcode uint8) {
 
 	case 0x65:
 		core.addZeroPage(nil)
+
+	case 0x68:
+		core.acc = core.pull()
 
 	case 0x69:
 		core.addImmediate()
