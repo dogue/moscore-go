@@ -1,18 +1,17 @@
 package moscore
 
-func (core *Core) bitZeroPage() {
-	byte := core.getZeroPageByte(nil)
-	result := core.acc & byte
+func (core *Core) bit(data uint8) {
+	result := core.acc & data
 
 	core.setFlag(Zero, result == 0)
-	core.setFlag(Negative, (byte&(1<<Negative) != 0))
-	core.setFlag(Overflow, (byte&(1<<Overflow) != 0))
+	core.setFlag(Negative, (data&Negative) != 0)
+	core.setFlag(Overflow, (data&Overflow) != 0)
 }
 
-func (core *Core) bitAbsolute() {
-	byte := core.getAbsoluteByte(nil)
-	result := core.acc & byte
+func (core *Core) compare(register uint8, data uint8) {
+	result := register - data
 
-	core.setNZ(result)
-	core.setFlag(Overflow, (result&(1<<6) != 0))
+	core.setFlag(Negative, (result&Negative) != 0)
+	core.setFlag(Carry, register >= data)
+	core.setFlag(Zero, register == data)
 }

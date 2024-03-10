@@ -1,43 +1,36 @@
 package moscore
 
-func (core *Core) getImmediate() uint8 {
+// Fetch next byte as operand
+func (core *Core) getImmediateByte() uint8 {
 	return core.fetch()
 }
 
-func (core *Core) getZeroPageAddr(index Register) uint16 {
+func (core *Core) getZeroPageAddr(offset uint8) uint16 {
 	zpLow := core.fetch()
 	zpHigh := uint8(0x00)
-
-	if index != nil {
-		zpLow += *index
-	}
-
+	zpLow += offset
 	return addrFromBytes(zpLow, zpHigh)
 }
 
-func (core *Core) getZeroPageByte(index Register) uint8 {
-	addr := core.getZeroPageAddr(index)
+func (core *Core) getZeroPageByte(offset uint8) uint8 {
+	addr := core.getZeroPageAddr(offset)
 	return core.bus.Read(addr)
 }
 
-func (core *Core) getAbsoluteAddr(index Register) uint16 {
+func (core *Core) getAbsoluteAddr(offset uint8) uint16 {
 	low := core.fetch()
 	high := core.fetch()
 	addr := addrFromBytes(low, high)
-
-	if index != nil {
-		addr += uint16(*index)
-	}
-
+	addr += uint16(offset)
 	return addr
 }
 
-func (core *Core) getAbsoluteByte(index Register) uint8 {
-	addr := core.getAbsoluteAddr(index)
+func (core *Core) getAbsoluteByte(offset uint8) uint8 {
+	addr := core.getAbsoluteAddr(offset)
 	return core.bus.Read(addr)
 }
 
-func (core *Core) getIndexedIndirectAddr() uint16 {
+func (core *Core) getIndirectXAddr() uint16 {
 
 	zpLow := core.fetch()
 	zpHigh := uint8(0x00)
@@ -49,13 +42,12 @@ func (core *Core) getIndexedIndirectAddr() uint16 {
 	return addrFromBytes(targetLow, targetHigh)
 }
 
-func (core *Core) getIndexedIndirectByte() uint8 {
-	addr := core.getIndexedIndirectAddr()
+func (core *Core) getIndirectXByte() uint8 {
+	addr := core.getIndirectXAddr()
 	return core.bus.Read(addr)
 }
 
-func (core *Core) getIndirectIndexedAddr() uint16 {
-
+func (core *Core) getIndirectYAddr() uint16 {
 	zpLow := core.fetch()
 	zpHigh := uint8(0x00)
 	zpAddr := addrFromBytes(zpLow, zpHigh)
@@ -68,7 +60,7 @@ func (core *Core) getIndirectIndexedAddr() uint16 {
 	return targetAddr
 }
 
-func (core *Core) getIndirectIndexedByte() uint8 {
-	addr := core.getIndirectIndexedAddr()
+func (core *Core) getIndirectYByte() uint8 {
+	addr := core.getIndirectYAddr()
 	return core.bus.Read(addr)
 }

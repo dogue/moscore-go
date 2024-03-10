@@ -1,32 +1,32 @@
 package moscore
 
-type Flag int
+type Flag = uint8
 
 const (
-	Carry Flag = iota
-	Zero
-	IRQD
-	Decimal
-	Break
-	Unused
-	Overflow
-	Negative
+	Carry    Flag = 1
+	Zero          = 2
+	IRQD          = 4
+	Decimal       = 8
+	Break         = 16
+	Unused        = 32
+	Overflow      = 64
+	Negative      = 128
 )
 
 func (core *Core) setFlag(bit Flag, cond bool) {
 	if cond {
-		core.p |= 1 << bit
+		core.p |= bit
 	} else {
-		core.p &= ^uint8(1) << bit
+		core.p &= ^bit
 	}
 }
 
 func (core *Core) getFlag(bit Flag) bool {
-	return core.p&(1<<bit) != 0
+	return core.p&bit != 0
 }
 
 func (core *Core) getFlagUint8(bit Flag) uint8 {
-	return core.p & (1 << bit)
+	return core.p & bit
 }
 
 // setting both the negative and zero flags is common enough to warrant this helper

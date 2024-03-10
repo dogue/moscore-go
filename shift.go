@@ -6,8 +6,8 @@ func (core *Core) aslAccumulator() {
 	core.setNZ(core.acc)
 }
 
-func (core *Core) aslZeroPage(index Register) {
-	addr := core.getZeroPageAddr(index)
+func (core *Core) aslZeroPage(offset uint8) {
+	addr := core.getZeroPageAddr(offset)
 	byte := core.bus.Read(addr)
 	core.setFlag(Carry, (byte&(1<<7) != 0))
 	byte <<= 1
@@ -15,8 +15,8 @@ func (core *Core) aslZeroPage(index Register) {
 	core.bus.Write(addr, byte)
 }
 
-func (core *Core) aslAbsolute(index Register) {
-	addr := core.getAbsoluteAddr(index)
+func (core *Core) aslAbsolute(offset uint8) {
+	addr := core.getAbsoluteAddr(offset)
 	byte := core.bus.Read(addr)
 	core.setFlag(Carry, (byte&(1<<7) != 0))
 	byte <<= 1

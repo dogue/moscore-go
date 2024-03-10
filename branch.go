@@ -1,7 +1,7 @@
 package moscore
 
 func (core *Core) branchCarryClear() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if core.getFlag(Carry) {
 		return
@@ -11,7 +11,7 @@ func (core *Core) branchCarryClear() {
 }
 
 func (core *Core) branchCarrySet() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if !core.getFlag(Carry) {
 		return
@@ -21,7 +21,7 @@ func (core *Core) branchCarrySet() {
 }
 
 func (core *Core) branchIfEqual() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if !core.getFlag(Zero) {
 		return
@@ -31,7 +31,7 @@ func (core *Core) branchIfEqual() {
 }
 
 func (core *Core) branchIfMinus() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if !core.getFlag(Negative) {
 		return
@@ -41,7 +41,7 @@ func (core *Core) branchIfMinus() {
 }
 
 func (core *Core) branchNotEqual() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if core.getFlag(Zero) {
 		return
@@ -51,7 +51,7 @@ func (core *Core) branchNotEqual() {
 }
 
 func (core *Core) branchIfPositive() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if core.getFlag(Negative) {
 		return
@@ -61,7 +61,7 @@ func (core *Core) branchIfPositive() {
 }
 
 func (core *Core) branchNotOverflow() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if core.getFlag(Overflow) {
 		return
@@ -71,7 +71,7 @@ func (core *Core) branchNotOverflow() {
 }
 
 func (core *Core) branchIfOverflow() {
-	offset := core.getImmediate()
+	offset := core.getImmediateByte()
 
 	if !core.getFlag(Overflow) {
 		return

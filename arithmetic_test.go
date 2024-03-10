@@ -84,3 +84,16 @@ func TestAddAbsoluteIndexed(t *testing.T) {
 		t.Errorf("incorrect sum: wanted=%#02x, got=%#02x", 0x0a, core.acc)
 	}
 }
+
+func TestDecImmediate(t *testing.T) {
+	bus := newBus([]uint8{0xC6, 0x42})
+	bus.Write(0x0042, 0x6A)
+	core := New(&bus)
+	core.Reset()
+	core.Step()
+	byte := core.bus.Read(0x0042)
+
+	if byte != 0x69 {
+		t.Errorf("incorrect value in memory: wanted=%#02x, got=%#02x", 0x69, byte)
+	}
+}
