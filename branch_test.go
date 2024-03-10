@@ -2,18 +2,18 @@ package moscore
 
 import "testing"
 
-func TestBranchCarryClear(t *testing.T) {
+func TestBCC(t *testing.T) {
 	bus := newBus([]uint8{0x90, 0x05})
 	core := New(&bus)
 	core.Reset()
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchCarrySet(t *testing.T) {
+func TestBCS(t *testing.T) {
 	bus := newBus([]uint8{0xB0, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -21,11 +21,11 @@ func TestBranchCarrySet(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchIfEqual(t *testing.T) {
+func TestBEQ(t *testing.T) {
 	bus := newBus([]uint8{0xF0, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -33,11 +33,11 @@ func TestBranchIfEqual(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchIfMinus(t *testing.T) {
+func TestBMI(t *testing.T) {
 	bus := newBus([]uint8{0x30, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -45,11 +45,11 @@ func TestBranchIfMinus(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchNotEqual(t *testing.T) {
+func TestBNE(t *testing.T) {
 	bus := newBus([]uint8{0xD0, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -57,11 +57,11 @@ func TestBranchNotEqual(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchIfPositive(t *testing.T) {
+func TestBPL(t *testing.T) {
 	bus := newBus([]uint8{0x10, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -69,11 +69,11 @@ func TestBranchIfPositive(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchNotOverflow(t *testing.T) {
+func TestBVC(t *testing.T) {
 	bus := newBus([]uint8{0x50, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -81,11 +81,11 @@ func TestBranchNotOverflow(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }
 
-func TestBranchIfOverflow(t *testing.T) {
+func TestBVS(t *testing.T) {
 	bus := newBus([]uint8{0x70, 0x05})
 	core := New(&bus)
 	core.Reset()
@@ -93,6 +93,6 @@ func TestBranchIfOverflow(t *testing.T) {
 	core.Step()
 
 	if core.pc != 0x8007 {
-		t.Errorf("Incorrect value in PC: wanted=%#04x, got=%#04x", 0x8007, core.pc)
+		t.Errorf("incorrect branch offset: wanted=%#04x, got=%#04x", 0x8007, core.pc)
 	}
 }

@@ -406,7 +406,7 @@ func (core *Core) decode(opcode uint8) {
 
 	// LDA, abs Y
 	case 0xB9:
-		core.loadAbsolute(&core.acc, &core.idy)
+		core.acc = core.getAbsoluteByte(core.idy)
 		core.setNZ(core.acc)
 
 	// TSX
@@ -421,7 +421,7 @@ func (core *Core) decode(opcode uint8) {
 
 	// LDA, abs X
 	case 0xBD:
-		core.loadAbsolute(&core.acc, &core.idx)
+		core.acc = core.getAbsoluteByte(core.idx)
 		core.setNZ(core.acc)
 
 	// LDX, abs Y
